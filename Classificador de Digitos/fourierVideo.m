@@ -31,6 +31,8 @@ imagesc(S);
 title('Imagem Fourier');
 
 %espectro central -> nao entendi muito bem
+    % Deslocar o componente de frequência zero 
+    % para o centro do espectro
 Fsh = fftshift(F);
 
 % exibe imagem
