@@ -1,0 +1,42 @@
+%limpar variaveis
+clear; 
+%limpar tela
+clc; 
+%fechar telas
+close all; 
+
+%carrega a base
+data = load('mnist_test.csv'); 
+
+%classes das imagens
+labels = data(:,1);
+
+% imagens eh o resto
+images = data(:, 2:785);
+
+% imagem 1 que ta na primeira linha
+imagem1 = (reshape(images(1,:), 28, 28)');
+
+% exibe imagem
+colormap gray
+imagesc(imagem1)
+
+
+% filtro
+filter = [-1 -2 -1; 0 0 0;1 2 1];
+
+% convolucao da imagem 1 com o filtro
+C = conv2(imagem1, filter, 'valid');
+saveas(gcf,'imagem.jpg')
+% exibindo a imagem toda doida
+figure;
+imagesc(C)
+
+% passando por essa funcao de ativacao 
+% pra tirar os negativos
+C_2 =  max (0,C);
+
+% exibindo imagem final estranha
+figure;
+imagesc(C_2)
+

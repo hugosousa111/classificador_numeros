@@ -1,0 +1,14 @@
+function retorno = convH(imagem, filtro)
+    [l_f,c_f] = size(filtro);
+    [l_i,c_i] = size(imagem);
+    
+    
+    for j = 1:l_f
+        for k = 1:c_f
+            imagem(p,q)*filtro()
+        end
+    end
+
+
+    retorno = max (0,x);
+end
