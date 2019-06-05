@@ -2,7 +2,7 @@ clear all;
 close all;
 clc;
 
-imagem = [1 1 1 3; 4 6 4 8; 30 0 1 5; 0 2 2 4];
+imagem = [1 1 1 3 5; 4 6 4 8 5; 30 0 1 5 5; 0 2 2 4 3; 1 1 1 3 5];
 
 [l,c] = size(imagem);
 
@@ -19,7 +19,7 @@ for p = 0:m-1
         acumulador = 0;
         for j = 0:m-1
             for k = 0:n-1
-                acumulador = acumulador + (exp((((-2)*pi*i)/m)*j*(m-p)) * exp((((-2)*pi*i)/n)*k*(n-q)) * imagem(j+1,k+1));
+                acumulador = acumulador + (exp((((-2)*pi*1i)/m)*j*(p-m)) * exp((((-2)*pi*1i)/n)*k*(q-n)) * imagem(j+1,k+1));
             end
         end
         imagem_fourier(p+1,q+1) = acumulador;

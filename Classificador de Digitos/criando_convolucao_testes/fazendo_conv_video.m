@@ -1,6 +1,6 @@
 clear
 clc
-imagem = [1 1 1 3; 4 6 4 8; 30 0 1 5; 0 2 2 4];
+imagem = [1 1 1 3 5; 4 6 4 8 5; 30 0 1 5 5; 0 2 2 4 5];
 filtro = [1 0; 0 1];
 
 [l_f,c_f] = size(filtro);
@@ -25,7 +25,7 @@ for a = 1:l_i-l_f+1 %l_i
                 % tamanho do filtro para convoluir
             end
         end
-        imagem_conv(a,b) = acumulador
+        imagem_conv(a,b) = acumulador;
     end
 end
 
