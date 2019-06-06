@@ -54,23 +54,22 @@ imagens_C_F = fftshift(fftH_g(images_C));
 %%%%FALTA O FFSHIT
 
 % extraindo as caracteristicas
-atrib_imgs = ex_atribH_g(imagens_C_F);
+atrib_imgs = ex_atribH_g(imagens_C);
 
 
 CONSTANTE_SVM = 1;
 KERNEL = 'polynomial';
 
-Md1 = fitcsvm(abs(atrib_imgs(1:400,:)), labels(1:400,1), ...
-            'KernelFunction', KERNEL,'PolynomialOrder', 2, 'BoxConstraint', CONSTANTE_SVM,...
-            'Standardize', true, 'ClassNames', {int2str(0), int2str(9)});
+% Md1 = fitcsvm(abs(atrib_imgs(1:400,:)), labels(1:400,1), ...
+%             'KernelFunction', KERNEL,'PolynomialOrder', 2, 'BoxConstraint', CONSTANTE_SVM,...
+%             'Standardize', true, 'ClassNames', {int2str(0), int2str(9)});
 
 
+Mdl = fitcknn(abs(atrib_imgs(1:400,:)),labels(1:400,1),'NumNeighbors',5,'Standardize',1);
+
+acuracia = sum(str2num(cell2mat(predict(Mdl,abs(atrib_imgs(401:500,:))))) == labels(401:500,1))/length(labels(401:500,1))*100;
 
 
-acuracia = sum(str2num(cell2mat(predict(Md1,abs(atrib_imgs(401:500,:))))) == labels(401:500,1))/length(labels(401:500,1))*100;
-
-%== labels(81:100,1)
-%
 % imagem = (reshape(images(18,:), 28, 28)');
 % % convolucao da imagem 1 com o filtro
 % C = convH(imagem, filtro);
