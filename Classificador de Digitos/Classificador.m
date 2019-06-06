@@ -31,21 +31,7 @@ C_linha = (reshape(C(:,:)', 676, 1)');
 
 %extracao de caracteristicas
 
-disp('mean')
-disp(mean(C_linha)) %media
-% mean(mean(C)) %igual
 
-var(C_linha); %variancia
-
-disp('std')
-disp(std(C_linha)) %desvio padrao
-%sqrt(var(C_linha))
-
-disp('skewness')
-disp(skewness(C_linha)) %assimetria
-
-disp('kurtosis')
-disp(kurtosis(C_linha)) %curtose
 
 
 % exibindo a imagem toda doida
