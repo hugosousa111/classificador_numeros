@@ -37,6 +37,37 @@ images_C = convH_g(images(1:100,:), filtro);
 % colormap gray
 % imagesc(teste)
 
+
+% fazendo a transformada de fourier 
+images_C_F = fftH_g(images_C);
+
+% % exibindo uma imagem especifica transformada
+% figure;
+% colormap gray;
+% imagesc(abs(reshape(images_C_F(50,:), 26, 26)'))
+
+% figure;
+% colormap gray;
+% imagesc(abs(fftH(reshape(images_C(50,:), 26, 26)')));
+%F = fftH(reshape(images_C(2,:), 26, 26)');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % imagem = (reshape(images(18,:), 28, 28)');
 % % convolucao da imagem 1 com o filtro
 % C = convH(imagem, filtro);

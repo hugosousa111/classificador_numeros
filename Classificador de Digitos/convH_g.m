@@ -5,6 +5,7 @@ function retorno = convH_g(imagens, filtro)
     [l,c] = size(imagens);
     
     % matriz que vai guardar as imagens convoluidas
+    % pre-alocando
     imagens_C = zeros(l,676);
     
     for a = 1:l
