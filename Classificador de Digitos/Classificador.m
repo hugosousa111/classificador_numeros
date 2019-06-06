@@ -22,7 +22,7 @@ filtro = [0.0625 0.125 0.0625; 0.125 0.25 0.125;0.0625 0.125 0.0625];
 % images_C eh matriz que vai guardar as imagens convoluidas
 
 % chamando a funcao convolucao 
-images_C = convH_g(images(1:100,:), filtro);
+images_C = convH_g(images(1:500,:), filtro);
 
 % exibindo uma imagem especifica convoluida
 % figure;
@@ -39,7 +39,7 @@ images_C = convH_g(images(1:100,:), filtro);
 
 
 % fazendo a transformada de fourier 
-imagens_C_F = fftH_g(images_C);
+imagens_C_F = fftshift(fftH_g(images_C));
 
 % % exibindo uma imagem especifica transformada
 % figure;
@@ -57,19 +57,20 @@ imagens_C_F = fftH_g(images_C);
 atrib_imgs = ex_atribH_g(imagens_C_F);
 
 
+CONSTANTE_SVM = 1;
+KERNEL = 'polynomial';
+
+Md1 = fitcsvm(abs(atrib_imgs(1:400,:)), labels(1:400,1), ...
+            'KernelFunction', KERNEL,'PolynomialOrder', 2, 'BoxConstraint', CONSTANTE_SVM,...
+            'Standardize', true, 'ClassNames', {int2str(0), int2str(9)});
 
 
 
 
+acuracia = sum(str2num(cell2mat(predict(Md1,abs(atrib_imgs(401:500,:))))) == labels(401:500,1))/length(labels(401:500,1))*100;
 
-
-
-
-
-
-
-
-
+%== labels(81:100,1)
+%
 % imagem = (reshape(images(18,:), 28, 28)');
 % % convolucao da imagem 1 com o filtro
 % C = convH(imagem, filtro);
