@@ -39,7 +39,7 @@ images_C = convH_g(images(1:100,:), filtro);
 
 
 % fazendo a transformada de fourier 
-images_C_F = fftH_g(images_C);
+imagens_C_F = fftH_g(images_C);
 
 % % exibindo uma imagem especifica transformada
 % figure;
@@ -51,8 +51,10 @@ images_C_F = fftH_g(images_C);
 % imagesc(abs(fftH(reshape(images_C(50,:), 26, 26)')));
 %F = fftH(reshape(images_C(2,:), 26, 26)');
 
+%%%%FALTA O FFSHIT
 
-
+% extraindo as caracteristicas
+atrib_imgs = ex_atribH_g(imagens_C_F);
 
 
 
