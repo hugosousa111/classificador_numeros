@@ -1,52 +1,67 @@
-%limpar variaveis
-clear; 
-%limpar tela
-clc; 
-%fechar telas
-close all; 
+% limpar variaveis, limpar console, fechar telas
+clear; clc; close all; 
 
-%carrega a base
+% carrega a base
 data = load('mnist_test.csv');
 
-%todas as linhas da primeira coluna
+% todas as linhas da primeira coluna sao as classes
 labels = data(:,1);
 
-% resto sao as imagens
+% resto das linhas sao as imagens
 images = data(:, 2:785);
 
-colormap gray
-% faz a imagem 
-imagesc(reshape(images(1,:), 28, 28)')
+% exibindo uma das imagens
+% colormap gray
+% % faz a imagem 
+% imagesc(reshape(images(50,:), 28, 28)')
 
-% filtro
+% filtro escolhido 
+% blur
 filtro = [0.0625 0.125 0.0625; 0.125 0.25 0.125;0.0625 0.125 0.0625];
 
+% images_C eh matriz que vai guardar as imagens convoluidas
 
-imagem = (reshape(images(18,:), 28, 28)');
-% convolucao da imagem 1 com o filtro
-C = convH(imagem, filtro);
+% chamando a funcao convolucao 
+images_C = convH_g(images(1:100,:), filtro);
 
-C_linha = (reshape(C(:,:)', 676, 1)');
-% se comporta com o 'valid' - 26x26
+% exibindo uma imagem especifica convoluida
+% figure;
+% colormap gray;
+% imagesc(reshape(images_C(50,:), 26, 26)')
 
-%extracao de caracteristicas
-
-
-
-
-% exibindo a imagem toda doida
-figure;
-colormap gray
-imagesc(C)
-% se tiver usado um filtro que deixa valores negativos
-% fica num tom de cinza diferente
-
-
-% % passando por essa funcao de ativacao 
-% % pra tirar os negativos
-% C_2 =  max (0,C);
+% teste
+% imagem1 = (reshape(images(50,:), 28, 28)');
+% teste = convH(imagem1, filtro);
 % 
-% % exibindo imagem final estranha
 % figure;
 % colormap gray
-% imagesc(C_2)
+% imagesc(teste)
+
+% imagem = (reshape(images(18,:), 28, 28)');
+% % convolucao da imagem 1 com o filtro
+% C = convH(imagem, filtro);
+% 
+% C_linha = (reshape(C(:,:)', 676, 1)');
+% % se comporta com o 'valid' - 26x26
+% 
+% %extracao de caracteristicas
+% 
+% 
+% 
+% 
+% % exibindo a imagem toda doida
+% figure;
+% colormap gray
+% imagesc(C)
+% % se tiver usado um filtro que deixa valores negativos
+% % fica num tom de cinza diferente
+% 
+% 
+% % % passando por essa funcao de ativacao 
+% % % pra tirar os negativos
+% % C_2 =  max (0,C);
+% % 
+% % % exibindo imagem final estranha
+% % figure;
+% % colormap gray
+% % imagesc(C_2)
