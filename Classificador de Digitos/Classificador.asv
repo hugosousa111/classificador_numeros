@@ -22,31 +22,12 @@ imagesc(reshape(images(1,:), 28, 28)')
 filtro = [0.0625 0.125 0.0625; 0.125 0.25 0.125;0.0625 0.125 0.0625];
 
 
-imagem = (reshape(images(18,:), 28, 28)');
+imagem = (reshape(images(1,:), 28, 28)');
 % convolucao da imagem 1 com o filtro
 C = convH(imagem, filtro);
 
-C_linha = (reshape(C(:,:)', 676, 1)');
+%C_teste = (reshape(C(:,:), 1, 28)');
 % se comporta com o 'valid' - 26x26
-
-%extracao de caracteristicas
-
-disp('mean')
-disp(mean(C_linha)) %media
-% mean(mean(C)) %igual
-
-var(C_linha); %variancia
-
-disp('std')
-disp(std(C_linha)) %desvio padrao
-%sqrt(var(C_linha))
-
-disp('skewness')
-disp(skewness(C_linha)) %assimetria
-
-disp('kurtosis')
-disp(kurtosis(C_linha)) %curtose
-
 
 % exibindo a imagem toda doida
 figure;
@@ -64,3 +45,6 @@ imagesc(C)
 % figure;
 % colormap gray
 % imagesc(C_2)
+
+A = images(1,:)
+B = 
