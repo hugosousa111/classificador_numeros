@@ -36,12 +36,12 @@ figure;
 plot(y_f)
 
 figure;
-tf = abs(fftshift(fft(y_f)))
+tf = abs(fftshift(fft(y_f)));
 plot(eixo,tf)
 
 
 %ruido branco
-y1 = wgn(200,1,randn*sqrt(0.5));
+ruido_b = randn(1,10000)*sqrt(0.05);
 
 %soma
 y_s = y1'+sinal_soma;
