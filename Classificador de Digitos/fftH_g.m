@@ -19,7 +19,7 @@ function retorno = fftH_g(imagens)
         % reorganizo do formado 26x26 para 1x676
         % e guardo dentro da variavel que vai retornar
         imagens_F(a,:) = (reshape(aux(:,:)', 676, 1)');
-        disp(a)
+        %disp(a)
     end
     
     retorno = imagens_F;
