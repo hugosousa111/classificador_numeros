@@ -44,10 +44,10 @@ images_C_test = convH_g(images_test, filtro);
 
 
 % fazendo a transformada de fourier 
-%imagens_C_F = fftshift(fftH_g(images_C));
-%imagens_C_F_test = fftshift(fftH_g(images_C_test));
-imagens_C_F = images_C;
-imagens_C_F_test = images_C_test;
+imagens_C_F = fftshift(fftH_g(images_C));
+imagens_C_F_test = fftshift(fftH_g(images_C));
+%imagens_C_F = images_C;
+%imagens_C_F_test = images_C_test;
 
 % % exibindo uma imagem especifica transformada
 % figure;
@@ -146,37 +146,27 @@ for aux = 1:1:10000
     end
 end
 
-% % 
+
 % CONSTANTE_SVM = 1;
 % KERNEL = 'polynomial';
-% % % 
-% Md1 = fitcsvm(abs(atrib_imgs), labels, ...
-%               'KernelFunction', KERNEL,'PolynomialOrder', 2, 'BoxConstraint', CONSTANTE_SVM,...
-%               'Standardize', true, 'ClassNames', {int2str(0), int2str(9)});
-%  % 
-% % % 
+% 
+% % Md1 = fitcsvm(abs(atrib_imgs(1:400,:)), labels(1:400,1), ...
+% %             'KernelFunction', KERNEL,'PolynomialOrder', 2, 'BoxConstraint', CONSTANTE_SVM,...
+% %             'Standardize', true, 'ClassNames', {int2str(0), int2str(9)});
+% 
+% 
 
 
 % Mdl = fitcknn(abs(atrib_imgs(1:400,:)),labels(1:400,1),'NumNeighbors',5,'Standardize',1);
 % Mdl = fitcknn(abs(X_normalizado(1:9000,:)),labels(1:9000,:),'NumNeighbors',5,'Standardize',1);
+Mdl = fitcknn(abs(X_normalizado),labels,'NumNeighbors',5,'Standardize',1);
 
-Mdl = fitcknn(abs(X_normalizado(1:59999,:)),labels(1:59999,:),'NumNeighbors',5,'Standardize',1);
+%y_pre = predict(Mdl,abs(atrib_imgs(401:500,:)));
+y_pre = predict(Mdl,abs(X_normalizado_test));
 
-
-% y_pre = predict(Mdl,abs(atrib_imgs(401:500,:)));
-% y_pre = predict(Mdl,abs(X_normalizado_test));
-y_pre = predict(Mdl,abs(X_normalizado(60000,:)));
 
 % acuracia = sum(y_pre == labels(401:500,1)) / length(labels(401:500,1))*100;
 acuracia = sum(y_pre == labels_test) / length(labels_test) *100;
-
-
-
-Mdl = fitcknn(atrib_imgs,labels,'NumNeighbors',5,'Standardize',1);
-y_pre = predict(Mdl,atrib_imgs_test);
-acuracia_n_norma = sum(y_pre == labels_test) / length(labels_test) *100;
-
-
 
 for i=1:10000
     r = randi([0 9],1,1);
@@ -215,17 +205,6 @@ acuracia_ale = sum(y_aleatorio' == labels_test) / length(labels_test) *100;
 % % colormap gray
 % % imagesc(C_2)
 
-q = 20;
-Mdl2 = sparsefilt(imagens_C_F,q,'IterationLimit',10);
-NewX = transform(Mdl2,imagens_C_F);
+load train.mat;
 
-TestX = transform(Mdl2,imagens_C_F_test);
-Mdl = fitcknn(NewX,labels,'NumNeighbors',5,'Standardize',1);
-
-y_pre = predict(Mdl,TestX);
-acuracia = sum(y_pre == labels_test) / length(labels_test) *100;
-
-
-%load train.mat;
-
-%sound(y);
+sound(y);

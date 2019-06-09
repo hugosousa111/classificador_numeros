@@ -13,11 +13,13 @@ function retorno = fftH_g(imagens)
         imagem = reshape(imagens(a,:), 26, 26)'; 
         
         % faz a transformada
-        aux = fftH(imagem);
+        % aux = fftH(imagem);
+        aux = fft2(imagem);
         
         % reorganizo do formado 26x26 para 1x676
         % e guardo dentro da variavel que vai retornar
         imagens_F(a,:) = (reshape(aux(:,:)', 676, 1)');
+        disp(a)
     end
     
     retorno = imagens_F;
