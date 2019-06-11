@@ -15,6 +15,10 @@ function retorno = fftH(imagem)
                     % aplicando a funcao de transformada de fourier 2d
                     % e acumulando os valores
                     acumulador = acumulador + (exp((((-2)*pi*1i)/m)*j*(p-m)) * exp((((-2)*pi*1i)/n)*k*(q-n)) * imagem(j+1,k+1));
+                    disp(p)
+                    disp(q)
+                    disp(j)
+                    disp(k)
                 end
             end
             % pegando o resultado e colocando no pixel certo

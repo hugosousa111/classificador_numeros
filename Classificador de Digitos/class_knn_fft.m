@@ -58,11 +58,15 @@ for i=1:5 % roda 5 vezes
     %% filtro escolhido 
     % blur
     filtro = [0.0625 0.125 0.0625; 0.125 0.25 0.125;0.0625 0.125 0.0625];
-
+    ffiltro = fftH(filtro);
+    
     %% chamando a funcao convolucao 
-    images_C_train = convH_g(images_train, filtro);
-    images_C_test = convH_g(images_test, filtro);
-
+    %images_C_train = convH_g(images_train, filtro);
+    %images_C_test = convH_g(images_test, filtro);
+    images_C_train = images_train;
+    images_C_test = images_test;
+    
+    
     %% exibindo uma imagem especifica convoluida
     % figure;
     % colormap gray;
@@ -75,6 +79,9 @@ for i=1:5 % roda 5 vezes
     %imagens_C_F_train = images_C_train;
     %imagens_C_F_test = images_C_test;
 
+    %%%%%%%%%%%%%%%%%%%%%%%%%% pensar depois
+    imag = filter2(imagens_C_F_train,ffiltro);
+    
     %% exibindo uma imagem especifica transformada
     % figure;
     % colormap gray;
