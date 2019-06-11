@@ -1,7 +1,7 @@
 %% limpar variaveis, limpar console, fechar telas
 clear; clc; close all; 
 
-rng(1); %semente do rand
+% rng(1); %semente do rand
 
 %% carrega a base
 data_train= load('mnist_train.csv');
@@ -25,11 +25,9 @@ end
 
 a = 14000; % auxiliar na parte de separar a base
 
-rodadas = 1;
-acuracia = zeros(1,rodadas);
+acuracia = zeros(1,5);
 
-
-for i=1:rodadas % roda 5 vezes
+for i=1:5 % roda 5 vezes
     disp(i)
     tic;
     %% separar 20% da base pra teste e 80% pra treino
@@ -59,7 +57,7 @@ for i=1:rodadas % roda 5 vezes
 
     %% filtro escolhido 
     % blur
-    filtro = [-1 -2 -1; 0 0 0;1 2 1];
+    filtro = [0.0625 0.125 0.0625; 0.125 0.25 0.125;0.0625 0.125 0.0625];
 
     %% chamando a funcao convolucao 
     images_C_train = convH_g(images_train, filtro);
@@ -70,14 +68,13 @@ for i=1:rodadas % roda 5 vezes
     % colormap gray;
     % imagesc(reshape(images_C_train(50,:), 26, 26)')
 
-    disp('2')
+
     %% fazendo a transformada de fourier 
     imagens_C_F_train = fftshift(fftH_g(images_C_train));
     imagens_C_F_test = fftshift(fftH_g(images_C_test));
     %imagens_C_F_train = images_C_train;
     %imagens_C_F_test = images_C_test;
 
-    disp('3')
     %% exibindo uma imagem especifica transformada
     % figure;
     % colormap gray;
@@ -85,47 +82,17 @@ for i=1:rodadas % roda 5 vezes
 
     %% features
     q = 40;
-    Mdl2 = sparsefilt([real(imagens_C_F_train) angle(imagens_C_F_train)],q,'IterationLimit',10);
-    %Mdl2 = sparsefilt(imagens_C_F_train,q,'IterationLimit',10);
-    
-    New_train = transform(Mdl2,[real(imagens_C_F_train) angle(imagens_C_F_train)]);
-    %New_train = transform(Mdl2,imagens_C_F_train);
-    
-    New_test = transform(Mdl2,[real(imagens_C_F_test) angle(imagens_C_F_test)]);
-    %New_test = transform(Mdl2,imagens_C_F_test);
+    Mdl2 = sparsefilt(abs(imagens_C_F_train),q,'IterationLimit',10);
+    New_train = transform(Mdl2,abs(imagens_C_F_train));
 
-    %% normalizacao media 0 e desvio padrao unitario
-    X_mean = mean(New_train);
-    X_std= std(New_train);
+    New_test = transform(Mdl2,abs(imagens_C_F_test));
 
-    X_normalizado = zeros(56000,20); % criacao da matriz que vai ter media 0 e desvio padrao unitario
-
-    X_mean_test = mean(New_test);
-    X_std_test= std(New_test);
-
-    X_normalizado_test = zeros(10000,20);
-
-    for aux = 1:1:56000
-        for col = 1:1:20
-            X_normalizado(aux,col) = (New_train(aux,col) - X_mean(col))/(X_std(col));
-            % formula para normalizar para os paramentos de media 0 e desvio padrao unitario
-        end
-    end
-
-    for aux = 1:1:14000
-        for col = 1:1:20
-            X_normalizado_test(aux,col) = (New_test(aux,col) - X_mean_test(col))/(X_std_test(col));
-            % formula para normalizar para os paramentos de media 0 e desvio padrao unitario
-        end
-    end
 
     %% treino
     Mdl = fitcknn(New_train,labels_train,'NumNeighbors',5,'Standardize',1);
-    %Mdl = fitcknn(X_normalizado,labels_train,'NumNeighbors',5,'Standardize',1);
 
     %% teste
     y_pre = predict(Mdl,New_test);
-    %y_pre = predict(Mdl,X_normalizado_test);
 
     acuracia(i) = sum(y_pre == labels_test) / length(labels_test) *100;
 
@@ -133,4 +100,4 @@ for i=1:rodadas % roda 5 vezes
 end
 
 %% media de acuracia
-md_acuracia = sum(acuracia)/rodadas;
+md_acuracia = sum(acuracia)/5;
