@@ -66,8 +66,8 @@ title('Cinza Lenna');
     title('Filtro disk');
     
 %% carregando imagem
-imagem2 = imread('..\Imagens\cameraman.jpg');
-imagem2 = rgb2gray(imagem2);
+%imagem2 = imread('..\Imagens\cameraman.jpg');
+imagem2 = imread('cameraman.tif');
 figure;
 imshow(imagem2); 
 title('Original Cameraman');
