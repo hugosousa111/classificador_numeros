@@ -1,6 +1,9 @@
 %% limpar variaveis, limpar console, fechar telas
 clear; clc; close all;
 
+%% funcoes
+addpath('..\Func');
+
 %% carregando imagem
 imagem = imread('lenna.jpg');
 figure;
@@ -48,11 +51,12 @@ title('Cinza Lenna');
     %% exibindo imagem convoluida
     figure;
     imshow(uint8(imagem_conv_3)); 
-    title('Filtro Sobel');
+    title('Filtro prewitt');
 
     
 %% carregando imagem
 imagem2 = imread('cameraman.jpg');
+imagem2 = rgb2gray(imagem2);
 figure;
 imshow(imagem2); 
 title('Original Cameraman');
@@ -61,16 +65,12 @@ title('Original Cameraman');
 imagem2_ruido = imnoise(imagem2,'gaussian',0.01);
 figure;
 imshow(imagem2_ruido); 
-title('Noise');
+title('Cameraman Ruido');
 
 %% filtro escolhido
-filtrado = wiener
+filtrado = wiener2(imagem2_ruido, [5 5]);
 
-    %% chamando a funcao convolucao 
-    imagem_conv_1 = convH(imagem_cinza_noise, h_filtro1);
-
-    %% exibindo imagem convoluida
-    figure;
-    imshow(uint8(imagem_conv_1)); 
-    title('Filtro Average');
-
+%% exibindo imagem convoluida
+figure;
+imshow(uint8(filtrado)); 
+title('Filtro Cameraman');
