@@ -3,10 +3,10 @@
 close all; clear; clc;
 
 load y_desafio2.mat;
-%sound(y_desafio2, Fs);
 
 Fs = 44100;
 n = 0:(length(y_desafio2)-1);
+%sound(y_desafio2, Fs);
 
 %plot(y_desafio2)
 
