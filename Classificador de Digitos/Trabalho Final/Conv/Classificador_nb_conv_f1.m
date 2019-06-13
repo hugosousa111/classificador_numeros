@@ -1,13 +1,15 @@
 %% limpar variaveis, limpar console, fechar telas
 clear; clc; close all; 
 
-rng(1); %semente do rand
+%% semente do rand
+rng(1); 
 
+%% funcoes
+addpath('.\Func');
 
-addpath('..\Func');
 %% carrega a base
 data_train= load('..\mnist_train.csv');
-data_test = load('mnist_test.csv');
+data_test = load('..\mnist_test.csv');
 
 data = [data_train; data_test];
 
@@ -30,7 +32,7 @@ acuracia = zeros(1,5);
 
 for i=1:5 % roda 5 vezes
     disp(i)
-    tic;
+    
     %% separar 20% da base pra teste e 80% pra treino
 
     data_test = data((a-13999):a,:);
@@ -52,29 +54,31 @@ for i=1:5 % roda 5 vezes
     images_test = data_test(:, 2:785);
 
     %% exibindo uma das imagens
-    % colormap gray
+    %figure;
+    %colormap gray;
     % % faz a imagem 
-    % imagesc(reshape(images_train(50,:), 28, 28)')
+    %imagesc(reshape(images_train(50,:), 28, 28)')
 
     %% filtro escolhido 
-    % blur
     filtro = fspecial('average',3);
-    
+    %filtro = fspecial('disk',1);
+    %filtro = fspecial('prewitt');
     
     %% chamando a funcao convolucao 
     images_C_train = convH_g(images_train, filtro);
     images_C_test = convH_g(images_test, filtro);
+    
+    %% sem filtro
     %images_C_train = images_train;
     %images_C_test = images_test;
     
-    
     %% exibindo uma imagem especifica convoluida
-    % figure;
-    % colormap gray;
-    % imagesc(reshape(images_C_train(50,:), 26, 26)')
+    %figure;
+    %colormap gray;
+    %imagesc(reshape(images_C_train(50,:), 26, 26)')
     
     %% features
-    q = 20;
+    q = 40;
     Mdl2 = sparsefilt(abs(images_C_train),q,'IterationLimit',10);
     New_train = transform(Mdl2,abs(images_C_train));
 
@@ -82,15 +86,16 @@ for i=1:5 % roda 5 vezes
 
 
     %% treino
-    Mdl = fitcknn(New_train,labels_train,'NumNeighbors',5,'Standardize',1);
-
+    Mdl = fitcnb(New_train,labels_train);
+ 
     %% teste
     y_pre = predict(Mdl,New_test);
-
+    
     acuracia(i) = sum(y_pre == labels_test) / length(labels_test) *100;
 
     disp(i)
 end
 
-%% media de acuracia
-md_acuracia = sum(acuracia)/5;
+%% info
+md_acuracia = sum(acuracia)/5
+dp_acuracia = std(acuracia)

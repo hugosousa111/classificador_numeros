@@ -61,14 +61,16 @@ for i=1:5 % roda 5 vezes
 
     %% filtro escolhido 
     filtro = fspecial('average',3);
-    
+    %filtro = fspecial('disk',1);
+    %filtro = fspecial('prewitt');
     
     %% chamando a funcao convolucao 
     images_C_train = convH_g(images_train, filtro);
     images_C_test = convH_g(images_test, filtro);
+    
+    %% sem filtro
     %images_C_train = images_train;
     %images_C_test = images_test;
-    
     
     %% exibindo uma imagem especifica convoluida
     %figure;
@@ -76,7 +78,7 @@ for i=1:5 % roda 5 vezes
     %imagesc(reshape(images_C_train(50,:), 26, 26)')
     
     %% features
-    q = 20;
+    q = 40;
     Mdl2 = sparsefilt(abs(images_C_train),q,'IterationLimit',10);
     New_train = transform(Mdl2,abs(images_C_train));
 
@@ -84,8 +86,8 @@ for i=1:5 % roda 5 vezes
 
 
     %% treino
-    Mdl = fitcknn(New_train,labels_train,'NumNeighbors',5,'Standardize',1);
- 
+    Mdl = fitctree(New_train,labels_train); 
+    
     %% teste
     y_pre = predict(Mdl,New_test);
     

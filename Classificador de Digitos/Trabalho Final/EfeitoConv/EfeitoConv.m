@@ -5,7 +5,7 @@ clear; clc; close all;
 addpath('..\Func');
 
 %% carregando imagem
-imagem = imread('lenna.jpg');
+imagem = imread('..\Imagens\lenna.jpg');
 figure;
 imshow(imagem); 
 title('Original Lenna');
@@ -53,9 +53,20 @@ title('Cinza Lenna');
     imshow(uint8(imagem_conv_3)); 
     title('Filtro prewitt');
 
+%% filtro disk
+    %% filtro escolhido
+    h_filtro4 = fspecial('disk',1);
+
+    %% chamando a funcao convolucao 
+    imagem_conv_4 = convH(imagem_cinza, h_filtro4);
+
+    %% exibindo imagem convoluida
+    figure;
+    imshow(uint8(imagem_conv_4)); 
+    title('Filtro disk');
     
 %% carregando imagem
-imagem2 = imread('cameraman.jpg');
+imagem2 = imread('..\Imagens\cameraman.jpg');
 imagem2 = rgb2gray(imagem2);
 figure;
 imshow(imagem2); 
