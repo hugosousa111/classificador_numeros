@@ -65,8 +65,12 @@ for i=1:rodadas % roda 5 vezes
     images_F_test = fftH_g(images_test);
     
     %% filtro escolhido 
-    filtro_corte = filtro(1,15); % high
-    %filtro_corte = filtro(2,15); % low
+    filtro_corte = filtro_H_ou_L(2,15); % high
+    %filtro_corte = filtro_H_ou_L(2,15); % low
+    
+    %% aplicando o filtro em todas as imagens 
+    
+    
     
     %% sem filtro
     %images_F_train = images_train;

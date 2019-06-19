@@ -6,11 +6,11 @@ function retorno = fftH_g(imagens)
     
     % matriz que vai guardar as imagens depois da fourier
     % pre-alocando
-    imagens_F = zeros(l,676);
+    imagens_F = zeros(l,784);
     
     for a = 1:l
         % organizo no formado 26x26 como uma imagem
-        imagem = reshape(imagens(a,:), 26, 26)'; 
+        imagem = reshape(imagens(a,:), 28, 28)'; 
         
         % faz a transformada
         % aux = fftH(imagem);
@@ -18,7 +18,7 @@ function retorno = fftH_g(imagens)
         
         % reorganizo do formado 26x26 para 1x676
         % e guardo dentro da variavel que vai retornar
-        imagens_F(a,:) = (reshape(aux(:,:)', 676, 1)');
+        imagens_F(a,:) = (reshape(aux(:,:)', 784, 1)');
         %disp(a)
     end
     
