@@ -8,7 +8,7 @@ rng(1);
 addpath('..\Func');
 
 %% carrega a base
-data_train= load('..\..\mnist_train.csv');
+data_train = load('..\..\mnist_train.csv');
 data_test = load('..\..\mnist_test.csv');
 
 data = [data_train; data_test];
@@ -30,7 +30,7 @@ a = 14000; % auxiliar na parte de separar a base
 
 acuracia = zeros(1,5);
 
-rodadas = 1
+rodadas = 5;
 for i=1:rodadas % roda 5 vezes
     disp(i)
     
@@ -65,23 +65,24 @@ for i=1:rodadas % roda 5 vezes
     images_F_test = fftH_g(images_test);
     
     %% filtro escolhido 
-    filtro_corte = filtro_H_ou_L(2,15); % high
-    %filtro_corte = filtro_H_ou_L(2,15); % low
+    filtro_corte = filtro_H_ou_L(1,20); % high
+    %filtro_corte = filtro_H_ou_L(2,11); % low
     
+    %2,16 era bom
     %% aplicando o filtro em todas as imagens 
-    
-    
+    images_F_fil_train = multiplicar(images_F_train,filtro_corte);
+    images_F_fil_test = multiplicar(images_F_test,filtro_corte);
     
     %% sem filtro
-    %images_F_train = images_train;
-    %images_F_test = images_test;
+    %images_F_fil_train = images_F_train;
+    %images_F_fil_test = images_F_test;
     
     %% features
     q = 40;
-    Mdl2 = sparsefilt(abs(images_F_train),q,'IterationLimit',10);
-    New_train = transform(Mdl2,abs(images_F_train));
+    Mdl2 = sparsefilt(real(images_F_fil_train),q,'IterationLimit',10);
+    New_train = transform(Mdl2,real(images_F_fil_train));
 
-    New_test = transform(Mdl2,abs(images_F_test));
+    New_test = transform(Mdl2,real(images_F_fil_test));
 
 
     %% treino
