@@ -22,13 +22,15 @@ z=sqrt(x.^2+y.^2);
 corte = z>15; %% highpass
 figure;
 imshow(corte,[])
-
+title('Filtro')
 %% filtrando 
 tf_img2_f = tf_imagem2.*corte;
 figure;
 imshow(real(log(1+abs(tf_img2_f))),[])
+title('Filtrada na F')
 
 %% fazendo a inversa
 imagem_f = ifft2(fftshift(tf_img2_f));
 figure;
 imshow(real(imagem_f),[])
+title('Imagem Filtrada')

@@ -65,7 +65,7 @@ for i=1:rodadas % roda 5 vezes
     images_F_test = fftH_g(images_test);
     
     %% filtro escolhido 
-    filtro_corte = filtro_H_ou_L(1,20); % high
+    filtro_corte = filtro_H_ou_L(1,19); % high
     %filtro_corte = filtro_H_ou_L(2,11); % low
     
     %2,16 era bom
