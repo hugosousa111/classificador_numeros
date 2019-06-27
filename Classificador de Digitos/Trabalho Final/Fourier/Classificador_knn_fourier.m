@@ -61,7 +61,8 @@ for i=1:rodadas % roda 5 vezes
     %imagesc(reshape(images_train(50,:), 28, 28)')
     
     %% transformacao das imagens
-    images_F_train = fftH_g(images_train);
+    images_F_train = fft
+    H_g(images_train);
     images_F_test = fftH_g(images_test);
     
     %% filtro escolhido 
