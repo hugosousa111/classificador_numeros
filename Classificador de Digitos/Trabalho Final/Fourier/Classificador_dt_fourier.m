@@ -65,17 +65,17 @@ for i=1:rodadas % roda 5 vezes
     images_F_test = fftH_g(images_test);
     
     %% filtro escolhido 
-    filtro_corte = filtro_H_ou_L(1,15); % high
+    %filtro_corte = filtro_H_ou_L(2,16); % high
     %filtro_corte = filtro_H_ou_L(2,11); % low
     
     %2,16 era bom
     %% aplicando o filtro em todas as imagens 
-    images_F_fil_train = multiplicar(images_F_train,filtro_corte);
-    images_F_fil_test = multiplicar(images_F_test,filtro_corte);
+    %images_F_fil_train = multiplicar(images_F_train,filtro_corte);
+    %images_F_fil_test = multiplicar(images_F_test,filtro_corte);
     
     %% sem filtro
-    %images_F_fil_train = images_F_train;
-    %images_F_fil_test = images_F_test;
+    images_F_fil_train = images_F_train;
+    images_F_fil_test = images_F_test;
     
     %% features
     q = 40;
@@ -86,7 +86,7 @@ for i=1:rodadas % roda 5 vezes
 
 
     %% treino
-    Mdl = fitcknn(New_train,labels_train,'NumNeighbors',5,'Standardize',1); 
+    Mdl = fitctree(New_train,labels_train); 
     %% teste
     y_pre = predict(Mdl,New_test);
     
