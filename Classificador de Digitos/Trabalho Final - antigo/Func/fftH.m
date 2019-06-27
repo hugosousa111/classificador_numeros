@@ -1,12 +1,4 @@
 function retorno = fftH(imagem)
-    % funcao que faz a transformada de fourier de uma imagem
-    % similar ao fft2()
-
-    % essa funcao foi implementada 
-    % analisando a formula da tf2d
-    % na parte do More About, no seguinte link
-    % https://www.mathworks.com/help/matlab/ref/fft2.html
-    
     [l,c] = size(imagem);
     % numero de linhas e colunas da imagem
     

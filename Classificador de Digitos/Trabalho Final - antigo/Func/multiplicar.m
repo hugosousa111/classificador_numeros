@@ -14,7 +14,7 @@ function retorno = multiplicar(imgs,filtro)
         % filtro a imagem
         aux = imagem*filtro;
         
-        % reorganizo do formado 28x28 para 1x784
+        % reorganizo do formado 26x26 para 1x676
         % e guardo dentro da variavel que vai retornar
         imgs_F(a,:) = (reshape(aux(:,:)', 784, 1)');
         

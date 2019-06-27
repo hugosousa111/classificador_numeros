@@ -1,5 +1,5 @@
 %% limpar variaveis, limpar console, fechar telas
-%clear; clc; close all; 
+clear; clc; close all; 
 
 %% semente do rand
 rng(1); 
@@ -8,8 +8,8 @@ rng(1);
 addpath('..\Func');
 
 %% carrega a base
-%data_train = load('..\..\mnist_train.csv');
-%data_test = load('..\..\mnist_test.csv');
+data_train = load('..\..\mnist_train.csv');
+data_test = load('..\..\mnist_test.csv');
 
 data = [data_train; data_test];
 
@@ -61,13 +61,12 @@ for i=1:rodadas % roda 5 vezes
     %imagesc(reshape(images_train(50,:), 28, 28)')
     
     %% transformacao das imagens
-    images_F_train = fft
-    H_g(images_train);
+    images_F_train = fftH_g(images_train);
     images_F_test = fftH_g(images_test);
     
     %% filtro escolhido 
     filtro_corte = filtro_H_ou_L(1,15); % high
-    %filtro_corte = filtro_H_ou_L(2,11); % low
+    %filtro_corte = filtro_H_ou_L(2,16); % low
     
     %2,16 era bom
     %% aplicando o filtro em todas as imagens 

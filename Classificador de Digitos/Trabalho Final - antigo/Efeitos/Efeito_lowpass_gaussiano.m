@@ -26,6 +26,7 @@ filtro_e = mat2gray(filtro);
 %% transformada
 tf_imagem2 = fftshift(fft2(imagem2));
 
+
 %% exibir imagem na freq
 figure;
 imshow(real(log(1+abs(tf_imagem2))),[])
