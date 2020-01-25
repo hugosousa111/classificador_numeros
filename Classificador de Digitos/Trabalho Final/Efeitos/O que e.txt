@@ -1,1 +1,0 @@
-Esses arquivos são algumas implementações que eu fiz para demonstrar o efeito da convolução e da transforma de fourier
